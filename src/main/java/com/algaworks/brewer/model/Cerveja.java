@@ -13,7 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -42,12 +43,13 @@ public class Cerveja implements Serializable {
 	@Size(max = 50, message = "DESCRIÇÃO deve conter entre 1-50 caracteres!")
 	private String descricao;
 
-	//@NotBlank(message = "VALOR não pode estar vazio!")
-	//@Size(max = 7, message = "VALOR não pode ser maior que 9999,99")
+	@NotNull(message = "Valor é obrigatório")
+	@DecimalMin(value = "0.50", message = "O valor da cerveja deve ser maior que R$0,50")
+	@DecimalMax(value = "9999999.99", message = "O valor da cerveja deve ser menor que R$9.999.999,99")
 	private BigDecimal valor;
 
 	@Column(name = "teor_alcoolico")
-	@Max(value = 6, message = "TEOR ALCOOLICO não pode ser maior que 100,00")
+	@DecimalMax(value = "100.0", message = "TEOR ALCOOLICO não pode ser maior que 100.00")
 	@NotNull(message = "TEOR ALCOOLICO não pode estar vazio!")
 	private BigDecimal teorAlcoolico;
 
